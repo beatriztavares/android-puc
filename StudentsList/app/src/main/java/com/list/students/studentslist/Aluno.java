@@ -1,11 +1,19 @@
 package com.list.students.studentslist;
 
-import java.util.Date;
+
 
 public class Aluno {
 
-    private String objectId, fotoUrl, nome, telefone, endereco;
-    private int idade;
+    private String objectId;
+    private String fotoUrl;
+    private Integer idade;
+    private String nome;
+    private String telefone;
+    private String updatedAt;
+    private String createdAt;
+    private String endereco;
+
+
 
     public String getObjectId() {
         return objectId;
@@ -21,6 +29,14 @@ public class Aluno {
 
     public void setFotoUrl(String fotoUrl) {
         this.fotoUrl = fotoUrl;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
     public String getNome() {
@@ -39,6 +55,22 @@ public class Aluno {
         this.telefone = telefone;
     }
 
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public String getEndereco() {
         return endereco;
     }
@@ -47,12 +79,6 @@ public class Aluno {
         this.endereco = endereco;
     }
 
-    public int getIdade() {
-        return idade;
-    }
 
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
 
 }
