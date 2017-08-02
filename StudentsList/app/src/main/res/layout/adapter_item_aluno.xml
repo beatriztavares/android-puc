@@ -23,19 +23,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="nome"
                 android:id="@+id/txtNomeAluno" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="idade"
                 android:id="@+id/txtIdadeAluno" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="endereço"
                 android:id="@+id/txtEnderecoAluno" />
 
@@ -44,8 +44,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
             android:id="@+id/imgDeleteAluno"
-            android:src="@mipmap/ic_close_black_24dp"
+            android:src="@mipmap/ic_delete_forever_black_24dp"
             />
 
     </LinearLayout>
