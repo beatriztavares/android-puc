@@ -1,7 +1,7 @@
 package com.list.students.studentslist;
 
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,6 +23,7 @@ public class AdapterListAlunos extends BaseAdapter {
     private final Context context;
     private final java.util.List<Aluno> alunos;
     APIService service;
+    ProgressDialog pDialog;
     static final String TAG = "Retrofit";
 
 
@@ -73,7 +72,7 @@ public class AdapterListAlunos extends BaseAdapter {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deletarAluno(aluno);
+                deletarAluno(aluno, position);
             }
         });
 
@@ -82,26 +81,37 @@ public class AdapterListAlunos extends BaseAdapter {
     }
 
 
-    private void deletarAluno(Aluno a) {
+    private void deletarAluno(Aluno a, final int position) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(APIService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(APIService.class);
+
+        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Deletando aluno(a)...");
+        pDialog.setIndeterminate(true);
+        pDialog.setCancelable(false);
+        pDialog.show();
+
         Call<RetornoAlunos> call = service.deleteAluno(a.getObjectId());
         call.enqueue(new Callback<RetornoAlunos>() {
             @Override
             public void onResponse(Call<RetornoAlunos> call, Response<RetornoAlunos> response) {
                 if (response.isSuccessful()) {
+                    alunos.remove(position);
                 } else {
                     Log.e(TAG, response.message());
                 }
+                pDialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<RetornoAlunos> call, Throwable t) {
                 Log.e(TAG, t.getMessage());
+                pDialog.dismiss();
             }
         });
+        notifyDataSetChanged();
     }
 }
