@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -114,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
+            case R.id.atualizar:
+                callGetAlunos();
+                return true;
             case R.id.menu_day:
                 getWindow().getDecorView().setBackgroundColor(Color.WHITE);
                 toolbar.setBackgroundColor(Color.parseColor("#3fa7b5"));
@@ -142,6 +146,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void addAluno() {
 
+        if (view.getParent() != null) {
+            ((ViewGroup) view.getParent()).removeView(view);
+        }
+
         final EditText name = (EditText)view.findViewById(R.id.name);
         final EditText idade = (EditText)view.findViewById(R.id.idade);
         final EditText telefone = (EditText)view.findViewById(R.id.tel);
@@ -149,26 +157,22 @@ public class MainActivity extends AppCompatActivity {
         final EditText fotoUrl = (EditText)view.findViewById(R.id.url);
         pDialog.setMessage("Adicionando aluno(a)...");
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setView(view)
         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Aluno novo = new Aluno();
-                if((novo.getNome() != null) && (idade.getText().toString() != null) &&
-                        (telefone.getText().toString() != null) &&
-                        (endereco.getText().toString() != null) &&
-                        (fotoUrl.getText().toString() == null)){
-                    novo.setNome(name.getText().toString());
-                    novo.setIdade(Integer.parseInt(idade.getText().toString()));
-                    novo.setTelefone(telefone.getText().toString());
-                    novo.setEndereco(endereco.getText().toString());
-                    novo.setFotoUrl(fotoUrl.getText().toString());
-                    callAddAluno(novo);
-                }
+                novo.setNome(name.getText().toString());
+                novo.setIdade(Integer.parseInt(idade.getText().toString()));
+                novo.setTelefone(telefone.getText().toString());
+                novo.setEndereco(endereco.getText().toString());
+                novo.setFotoUrl(fotoUrl.getText().toString());
+                callAddAluno(novo);
             }
         })
         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
                 Toast.makeText(getApplicationContext(), "Cancelado!", Toast.LENGTH_LONG).show();
             }
         });
