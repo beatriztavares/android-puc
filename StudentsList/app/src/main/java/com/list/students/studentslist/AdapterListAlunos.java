@@ -104,6 +104,7 @@ public class AdapterListAlunos extends BaseAdapter {
                     Log.e(TAG, response.message());
                 }
                 pDialog.dismiss();
+                notifyDataSetChanged();
             }
 
             @Override
@@ -112,6 +113,5 @@ public class AdapterListAlunos extends BaseAdapter {
                 pDialog.dismiss();
             }
         });
-        notifyDataSetChanged();
     }
 }
